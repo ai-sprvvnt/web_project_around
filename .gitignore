@@ -1,0 +1,4 @@
+# Ignorar caché, dependencias u otros archivos no deseados
+node_modules/
+.DS_Store
+dist/

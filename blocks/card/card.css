@@ -1,0 +1,83 @@
+.card {
+  background: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.card__image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--card-bar);
+  color: var(--card-title);
+  padding: 14px 16px;
+}
+
+.card__title {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, "Noto Sans", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card__actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.card__like,
+.card__delete {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease, transform 0.05s ease-in;
+}
+
+.card__like:hover,
+.card__delete:hover {
+  background: #efefef;
+}
+
+.card__like:active,
+.card__delete:active {
+  transform: scale(0.97);
+}
+
+/* estado "likeado" */
+.card__like--active {
+  color: #e74c3c;
+}
+
+@media (min-width: 1280px) {
+  .card {
+    height: 363px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card__image {
+    flex: 0 0 282px;
+    height: 282px;
+  } /* 282×282 exacto */
+  .card__bar {
+    flex: 1 0 auto;
+    height: 81px;
+  } /* completa 363px */
+}

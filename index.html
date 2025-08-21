@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alrededor de los EE.UU.</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./vendor/normalize.css" />
+    <link rel="stylesheet" href="./vendor/fonts.css" />
+    <link rel="stylesheet" href="./pages/index.css" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title">
+        Around <span class="header__title-sub">The U.S.</span>
+      </h1>
+    </header>
+
+    <main class="content">
+      <!-- Perfil -->
+      <section class="profile">
+        <img class="profile__avatar" src="./images/jacques.webp" alt="Avatar" />
+
+        <div class="profile__info">
+          <h2 class="profile__name">Jacques Cousteau</h2>
+
+          <button
+            class="profile__edit-button"
+            type="button"
+            aria-label="Editar perfil"
+          >
+            ✎
+          </button>
+
+          <p class="profile__role">Explorador</p>
+        </div>
+
+        <button
+          class="profile__add-button"
+          type="button"
+          aria-label="Añadir tarjeta"
+        >
+          +
+        </button>
+      </section>
+
+      <!-- Tarjetas -->
+      <section class="elements" aria-label="Galería de lugares">
+        <!-- Tarjeta 1 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/chichenitza_mex.webp"
+            alt="Chichén Itzá, México"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Chichén Itzá</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/colima_mex.webp"
+            alt="Colima, México"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Colima</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/guadalajara_mex.webp"
+            alt="Guadalajara, México"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Guadalajara</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 4 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/piramide_del_sol_mex.webp"
+            alt="Pirámide del Sol, Teotihuacán"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Pirámide del Sol</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 5 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/progreso_mex.webp"
+            alt="Playa de Progreso, Yucatán"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Progreso</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 6 -->
+        <article class="card">
+          <img
+            class="card__image"
+            src="./images/punta_perula_mex.webp"
+            alt="Punta Perula, Jalisco"
+          />
+          <div class="card__bar">
+            <h3 class="card__title">Punta Perula</h3>
+            <div class="card__actions">
+              <button class="card__like" aria-label="Me gusta">❤</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copy">© 2025 Around The U.S.</p>
+    </footer>
+
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
