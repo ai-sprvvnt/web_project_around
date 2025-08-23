@@ -43,6 +43,13 @@
   font-size: 18px;
 }
 
+.profile__name,
+.profile__role {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .profile__edit-button {
   grid-column: 2;
   grid-row: 1;
