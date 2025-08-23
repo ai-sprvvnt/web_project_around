@@ -7,7 +7,45 @@
   color: #545454;
   display: flex;
   font-size: 18px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, "Noto Sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
   margin: 0;
+  line-height: 1;
+  letter-spacing: 0;
   text-align: center;
   align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 544px) {
+  .footer {
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+  .footer__copyright {
+    max-width: 282px;
+  }
+}
+
+@media (min-width: 545px) and (max-width: 1279px) {
+  .footer {
+    padding-top: 28px;
+    padding-bottom: 32px;
+  }
+  .footer__copyright {
+    max-width: 420px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer {
+    padding-top: 32px;
+    padding-bottom: 40px;
+  }
+  .footer__copyright {
+    max-width: 318px;
+  }
 }

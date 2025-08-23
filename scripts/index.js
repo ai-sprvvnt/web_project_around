@@ -1,11 +1,37 @@
 // Like / Unlike
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("card__like")) {
-    e.target.classList.toggle("card__like--active");
+/*document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".card__like");
+  if (!btn) return;
+  const img = btn.querySelector(".card__like-icon");
+  const liked = btn.classList.toggle("card__like_active");
+  btn.setAttribute("aria-pressed", liked ? "true" : "false");
+  if (img) {
+    img.src = liked
+      ? "./images/heart_filled_vector.svg"
+      : "./images/heart_vector.svg";
   }
-  if (e.target.classList.contains("card__delete")) {
-    const card = e.target.closest(".card");
-    if (card) card.remove();
+});*/
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".card__like");
+  if (!btn) return;
+
+  const img = btn.querySelector(".card__like-icon");
+  const isActive = btn.classList.toggle("card__like_active");
+  btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+
+  if (img) {
+    img.src = isActive
+      ? "./images/heart_filled_vector.svg"
+      : "./images/heart_vector.svg";
+  }
+});
+
+/* teclado: espacio/enter también activan el like */
+document.addEventListener("keydown", (e) => {
+  if ((e.key === " " || e.key === "Enter") && e.target.matches(".card__like")) {
+    e.preventDefault();
+    e.target.click();
   }
 });
 
