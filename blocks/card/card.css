@@ -1,23 +1,21 @@
 .card {
-  width: 282px; /* opcional, la cuadrícula ya lo fija a 282 */
-  height: 363px; /* 282 + 81 */
-  background: var(--card-bg, #111);
+  width: 282px;
+  height: 363px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
 }
 
 .card__image {
   width: 100%;
-  height: 240px;
+  height: 282px;
   object-fit: cover;
   display: block;
 }
 
 .card__bar {
-  flex: 0 0 81px; /* fija la altura */
+  flex: 0 0 49px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,12 +42,11 @@
   gap: 12px;
 }
 
-/* Botón como “icon button” */
 .card__like {
   appearance: none;
   border: 0;
   background: transparent;
-  padding: 0; /* importante para respetar 21×19 */
+  padding: 0;
   width: 21px;
   height: 19px;
   display: inline-grid;
@@ -57,7 +54,6 @@
   cursor: pointer;
 }
 
-/* Icono */
 .card__like-icon {
   display: block;
   width: 100%;
@@ -77,7 +73,6 @@
   transition: background 0.2s ease, transform 0.05s ease-in;
 }
 
-/* (Opcional) feedback */
 .card__like:hover {
   transform: scale(1.06);
   color: #7c7c7c;
@@ -86,25 +81,21 @@
   transform: scale(0.98);
 }
 
-/* Hover: opacidad 50% (solo donde hay puntero “fino”) */
 @media (hover: hover) and (pointer: fine) {
   .card__like:hover .card__like-icon {
     opacity: 0.5;
   }
 }
 
-/* Accesibilidad */
 .card__like:focus-visible {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
 
-/* Activo: predomina sobre hover (opacidad 100%) */
 .card__like_active .card__like-icon {
   opacity: 1;
 }
 
-/* (Opcional) ligera presión al hacer click */
 .card__like:active .card__like-icon {
   transform: scale(0.96);
 }
