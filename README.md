@@ -1,24 +1,37 @@
-# Tripleten web_project_around
+# Around The U.S. — Sprint 7–8 (web_project_around)
 
-# Alrededor de los EE. UU.
-
-Página interactiva con tarjetas de lugares. El usuario puede editar su perfil (nombre y rol) y dar “me gusta” a las fotos. Proyecto responsivo con maquetación basada en Figma.
-
-> Demo: https://ai-sprvvnt.github.io/web_project_around/  
-> Diseño: Figma “Around The U.S.” (versión Sprint 7)
-
----
+Proyecto educativo realizado con **HTML/CSS/JS y metodología **BEM**.  
+Objetivo: reproducir fielmente el diseño de **Figma**, mantener accesibilidad básica, y cumplir los Sprints 7–8.
 
 ## ✨ Funcionalidades
+- [x] **6 tarjetas iniciales** renderizadas con JavaScript desde `initialCards`.
+- [x] **Like accesible** (`aria-pressed`, 3 estados: normal/hover/activo).
+- [x] **Eliminar tarjeta** por delegación (botón papelera dentro de cada `.card`).
+- [x] **Añadir nueva tarjeta**: popup con formulario (`title`, `link`), inserta con `prepend`.
+- [x] **Popups reutilizables**: abren/cierran por **X**, **overlay** y **Esc**.
+- [x] **Popup de imagen** (máx **75vw × 75vh**, `figcaption` con el título).
+- [x] **Responsive sin scroll horizontal**: contenedor centrado con anchos exactos por breakpoint.
+- [x] **BEM** consistente; fuentes e imágenes **locales**.
 
-- **Maquetación responsiva**: sin scroll horizontal, **880 px** de contenido fijo en desktop (≥1280 px) y gutters en móvil/tablet.
-- **Tarjetas**: grid con columnas **fijas** de **282 × 363** (imagen **282 × 282**).
-- **Like accesible**: botón con SVG (estados desactivado/hover/activo) y `aria-pressed`.
-- **Editar perfil**: popup modal centrado con fondo semitransparente, abre/cierra con botón, overlay y tecla `Esc`.
-- **Fuentes e imágenes locales**: `Inter` y `Noto Serif` en `/fonts`, assets en `/images`.
-- **BEM**: estructura y nombres de bloques siguiendo la metodología.
+## Accesibilidad
+- Imágenes con `alt` (se toma del título).
+- Botones sin texto con `aria-label`.
+- Focus visible en controles relevantes (`:focus-visible`).
+- Semántica: `header`, `main`, `section`, `footer`; jerarquía `h1/h2`.
 
----
+## Tecnologías
+- HTML5 + CSS3 (Grid/Flex, clamp, object-fit)
+- JavaScript (ES6+, delegación de eventos)
+- BEM
+- Fuentes locales (`Inter`, `Noto Serif`) con `font-display: swap`
+- `normalize.css`
+
+## Cómo correr localmente
+bash
+# clona el repo
+git clone <tu-repo>
+cd web_project_around
+# abre index.html con Live Server (VS Code) o tu servidor estático favorito
 
 ## 🧱 Estructura del proyecto
 
@@ -44,3 +57,7 @@ web_project_around/
 └─ noto-serif-700.woff2
 
 GitHub: https://github.com/ai-sprvvnt
+
+## Demo
+- **GitHub Pages:** https://ai-sprvvnt.github.io/web_project_around/ (Settings → Pages → Deploy from branch → `main` / `/root`)
+- Rama de producción: `main`
