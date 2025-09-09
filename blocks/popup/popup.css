@@ -110,3 +110,54 @@
     right: -8px;
   }
 }
+
+/* ===== Popup de imagen ===== */
+.popup_type_image .popup__image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* sin caja blanca; solo la imagen */
+  box-shadow: none;
+  padding: 0;
+}
+
+.popup__figure {
+  margin: 0;
+}
+
+.popup__image {
+  display: block;
+  max-width: 75vw; /* requisito */
+  max-height: 75vh; /* requisito */
+  width: auto;
+  height: auto;
+  border-radius: 10px; /* coincide con Figma */
+  object-fit: contain; /* sin recortar en el modal */
+}
+
+.popup__caption {
+  margin-top: 8px;
+  color: #fff;
+  font: 400 12px/1.2 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  max-width: 75vw;
+  text-align: left;
+}
+
+/* Posición del botón cerrar relativo al contenedor de imagen */
+.popup_type_image .popup__close {
+  position: absolute;
+  top: -36px; /* igual que en la maqueta */
+  right: -36px;
+  color: #fff;
+  background: transparent;
+}
+
+@media (max-width: 767px) {
+  .popup_type_image .popup__close {
+    top: -28px;
+    right: 0;
+  }
+}
