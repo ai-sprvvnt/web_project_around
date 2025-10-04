@@ -52,6 +52,7 @@
       </section>
 
       <!-- Tarjetas -->
+
       <section class="elements" aria-label="Galería de lugares">
         <!-- Tarjeta 1 -->
         <article class="card">
@@ -60,6 +61,11 @@
             src="./images/chichenitza_mex.webp"
             alt="Chichén Itzá, México"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Chichén Itzá</h3>
             <div class="card__actions">
@@ -82,6 +88,11 @@
             src="./images/colima_mex.webp"
             alt="Colima, México"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Colima</h3>
             <div class="card__actions">
@@ -104,6 +115,11 @@
             src="./images/guadalajara_mex.webp"
             alt="Guadalajara, México"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Guadalajara</h3>
             <div class="card__actions">
@@ -126,6 +142,11 @@
             src="./images/piramide_del_sol_mex.webp"
             alt="Pirámide del Sol, Teotihuacán"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Pirámide del Sol</h3>
             <div class="card__actions">
@@ -148,6 +169,11 @@
             src="./images/progreso_mex.webp"
             alt="Playa de Progreso, Yucatán"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Progreso</h3>
             <div class="card__actions">
@@ -170,6 +196,11 @@
             src="./images/punta_perula_mex.webp"
             alt="Punta Perula, Jalisco"
           />
+          <button
+            class="card__delete"
+            type="button"
+            aria-label="Eliminar tarjeta"
+          ></button>
           <div class="card__bar">
             <h3 class="card__title">Punta Perula</h3>
             <div class="card__actions">
@@ -255,5 +286,90 @@
         </form>
       </div>
     </div>
+
+    <!-- Popup: Nueva tarjeta -->
+
+    <div
+      class="popup popup_type_add"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-card-title"
+    >
+      <div class="popup__container">
+        <button class="popup__close" type="button" aria-label="Cerrar">
+          ×
+        </button>
+        <h3 class="popup__title" id="add-card-title">Nueva tarjeta</h3>
+        <form class="popup__form" name="add-card-form" novalidate>
+          <label class="popup__label">
+            <span class="popup__label-text">Título</span>
+            <input
+              class="popup__input"
+              name="title"
+              type="text"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+          </label>
+          <label class="popup__label">
+            <span class="popup__label-text">URL de la imagen</span>
+            <input
+              class="popup__input"
+              name="link"
+              type="url"
+              placeholder="https://..."
+              required
+            />
+          </label>
+          <button class="popup__save-button" type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Popup: Imagen ampliada -->
+    <div
+      class="popup popup_type_image"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="image-popup-caption"
+    >
+      <div class="popup__image-container">
+        <button class="popup__close" type="button" aria-label="Cerrar">
+          ×
+        </button>
+        <figure class="popup__figure">
+          <img class="popup__image" src="" alt="" />
+          <figcaption
+            class="popup__caption"
+            id="image-popup-caption"
+          ></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <article class="card">
+        <img class="card__image" src="" alt="" />
+        <button
+          class="card__delete"
+          type="button"
+          aria-label="Eliminar tarjeta"
+        ></button>
+        <div class="card__bar">
+          <h3 class="card__title"></h3>
+          <div class="card__actions">
+            <button class="card__like" type="button" aria-label="Me gusta">
+              <img
+                class="card__like-icon"
+                src="./images/heart_vector.svg"
+                alt=""
+                loading="lazy"
+              />
+            </button>
+          </div>
+        </div>
+      </article>
+    </template>
   </body>
 </html>
