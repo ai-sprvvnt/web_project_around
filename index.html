@@ -191,6 +191,8 @@
       <p class="footer__copy">© 2025 Around The U.S.</p>
     </footer>
 
+    <script src="./scripts/validate.js" defer></script>
+    <!-- agregado -->
     <script src="./scripts/index.js" defer></script>
 
     <!-- Popup: Editar perfil -->
@@ -210,15 +212,23 @@
         <form class="popup__form" name="edit-profile-form" novalidate>
           <label class="popup__label">
             <span class="popup__label-text">Nombre</span>
+
             <input
               id="profile-name-input"
               class="popup__input"
               type="text"
               name="name"
               minlength="2"
-              maxlength="35"
+              maxlength="40"
               required
             />
+            <!-- maxlength="40" change -->
+            <!-- nuevo span de Error-->
+            <span
+              class="popup__error"
+              id="profile-name-input-error"
+              aria-live="polite"
+            ></span>
           </label>
 
           <label class="popup__label">
@@ -229,9 +239,16 @@
               type="text"
               name="about"
               minlength="2"
-              maxlength="100"
+              maxlength="200"
               required
             />
+            <!-- maxlength="200" change -->
+            <!-- nuevo span de error -->
+            <span
+              class="popup__error"
+              id="profile-role-input-error"
+              aria-live="polite"
+            ></span>
           </label>
 
           <button class="popup__save-button" type="submit">Guardar</button>

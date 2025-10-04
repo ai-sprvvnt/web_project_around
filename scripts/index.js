@@ -46,15 +46,33 @@ const profileRoleEl = document.querySelector(".profile__role");
 const editBtn = document.querySelector(".profile__edit-button");
 const closeBtn = popupEdit.querySelector(".popup__close");
 
+// ====== Datos iniciales (tus tarjetas actuales) ======
+const initialCards = [
+  { name: "Chichén Itzá", link: "./images/chichenitza_mex.webp" },
+  { name: "Colima", link: "./images/colima_mex.webp" },
+  { name: "Guadalajara", link: "./images/guadalajara_mex.webp" },
+  { name: "Pirámide del Sol", link: "./images/piramide_del_sol_mex.webp" },
+  { name: "Progreso", link: "./images/progreso_mex.webp" },
+  { name: "Punta Perula", link: "./images/punta_perula_mex.webp" },
+];
+
 /* helpers */
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscClose);
+
+  // --- limpiar validación al abrir si hay formulario ---
+  const form = popup.querySelector(validationConfig.formSelector);
+  if (form && typeof resetValidation === "function") {
+    resetValidation(form, validationConfig);
+  }
 }
+
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEscClose);
 }
+
 function handleEscClose(e) {
   if (e.key === "Escape") {
     const opened = document.querySelector(".popup.popup_opened");
