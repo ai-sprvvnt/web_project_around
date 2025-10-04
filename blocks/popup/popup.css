@@ -161,3 +161,47 @@
     right: 0;
   }
 }
+
+/* ====== Validación: mensajes de error ====== */
+.popup__error {
+  display: block;
+  min-height: 16px; /* evita saltos al aparecer */
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: transparent; /* invisible por defecto */
+}
+
+.popup__error_visible {
+  color: #ff0000; /* rojo exacto solicitado */
+}
+
+/* Input inválido: borde inferior rojo */
+.popup__input_type_error {
+  border-bottom: 1px solid #ff0000;
+  outline: none;
+}
+
+/* ====== Botón: hover 80% y estado inactivo ====== */
+.popup__save-button {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Hover (solo afectará al botón no deshabilitado) */
+.popup__save-button:hover {
+  opacity: 0.8; /* 80% */
+}
+
+/* Estado inactivo por clase (la pondrá JS) */
+.popup__save-button_disabled {
+  opacity: 0.5; /* consistente con :disabled */
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* si el botón usa atributo disabled */
+.popup__save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
