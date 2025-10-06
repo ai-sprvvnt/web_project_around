@@ -72,7 +72,7 @@ enableValidation(validationConfig);
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscClose);
-
+  popup.addEventListener("mousedown", handleOverlayClose);
   // --- limpiar validación al abrir si hay formulario ---
   const form = popup.querySelector(validationConfig.formSelector);
   if (form && typeof resetValidation === "function") {
@@ -83,12 +83,21 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEscClose);
+  popup.removeEventListener("mousedown", handleOverlayClose);
 }
 
-function handleEscClose(e) {
+/*function handleEscClose(e) {
   if (e.key === "Escape") {
     const opened = document.querySelector(".popup.popup_opened");
     if (opened) closePopup(opened);
+  }
+}*/
+
+function handleEscClose(e) {
+  if (e.key === "Escape") {
+    const opened = Array.from(document.querySelectorAll(".popup.popup_opened"));
+    const topmost = opened.at(-1);
+    if (topmost) closePopup(topmost);
   }
 }
 
@@ -226,6 +235,13 @@ gallery.addEventListener("click", (e) => {
 popupImgClose.addEventListener("click", () => closePopup(popupImage));
 
 // Cerrar por overlay
-popupImage.addEventListener("mousedown", (e) => {
+/*popupImage.addEventListener("mousedown", (e) => {
   if (e.target === popupImage) closePopup(popupImage);
-});
+});*/
+
+// Cierra un popup si se hace mousedown sobre el overlay (fuera del contenedor)
+function handleOverlayClose(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
+}
