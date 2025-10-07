@@ -182,25 +182,14 @@
   outline: none;
 }
 
-/* ====== Botón: hover 80% y estado inactivo ====== */
-.popup__save-button {
-  transition: opacity 0.2s ease-in-out;
-}
-
 /* Hover (solo afectará al botón no deshabilitado) */
 .popup__save-button:hover {
   opacity: 0.8; /* 80% */
+  transition: opacity 0.2s ease-in-out;
 }
 
 /* Estado inactivo por clase (la pondrá JS) */
 .popup__save-button_disabled {
-  opacity: 0.5; /* consistente con :disabled */
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* si el botón usa atributo disabled */
-.popup__save-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
