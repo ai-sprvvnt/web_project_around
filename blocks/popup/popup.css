@@ -118,7 +118,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: transparent; /* sin caja blanca; solo la imagen */
+  background: transparent;
   box-shadow: none;
   padding: 0;
 }
@@ -129,12 +129,12 @@
 
 .popup__image {
   display: block;
-  max-width: 75vw; /* requisito */
-  max-height: 75vh; /* requisito */
+  max-width: 75vw;
+  max-height: 75vh;
   width: auto;
   height: auto;
-  border-radius: 10px; /* coincide con Figma */
-  object-fit: contain; /* sin recortar en el modal */
+  border-radius: 10px;
+  object-fit: contain;
 }
 
 .popup__caption {
@@ -149,7 +149,7 @@
 /* Posición del botón cerrar relativo al contenedor de imagen */
 .popup_type_image .popup__close {
   position: absolute;
-  top: -36px; /* igual que en la maqueta */
+  top: -36px;
   right: -36px;
   color: #fff;
   background: transparent;
@@ -165,15 +165,15 @@
 /* ====== Validación: mensajes de error ====== */
 .popup__error {
   display: block;
-  min-height: 16px; /* evita saltos al aparecer */
+  min-height: 16px;
   margin-top: 6px;
   font-size: 12px;
   line-height: 1.2;
-  color: transparent; /* invisible por defecto */
+  color: transparent;
 }
 
 .popup__error_visible {
-  color: #ff0000; /* rojo exacto solicitado */
+  color: #ff0000;
 }
 
 /* Input inválido: borde inferior rojo */
@@ -184,7 +184,7 @@
 
 /* Hover (solo afectará al botón no deshabilitado) */
 .popup__save-button:hover {
-  opacity: 0.8; /* 80% */
+  opacity: 0.8;
   transition: opacity 0.2s ease-in-out;
 }
 

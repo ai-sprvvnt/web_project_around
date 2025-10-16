@@ -37,5 +37,4 @@ export function setPopupCloseHandlers(popup) {
   if (closeBtn) {
     closeBtn.addEventListener("click", () => closePopup(popup));
   }
-  // overlay ya lo maneja openPopup/closePopup
 }

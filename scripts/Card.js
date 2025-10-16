@@ -33,21 +33,6 @@ export default class Card {
       .content.querySelector(".card");
     return tmpl.cloneNode(true);
   }
-  /*
-  _setLikeState(isActive) {
-    if (!this._likeButton) return;
-    this._likeButton.classList.toggle(this._likeActiveClass, isActive);
-    const icon = this._likeButton.querySelector(`.${this._likeIconClass}`);
-    if (icon) icon.src = isActive ? this._iconFilled : this._iconOutline;
-    this._likeButton.setAttribute("aria-pressed", isActive ? "true" : "false");
-  }
-
-  _handleLike = () => {
-    const nowActive = !this._likeButton.classList.contains(
-      this._likeActiveClass
-    );
-    this._setLikeState(nowActive);
-  };*/
 
   // ====== LIKE ======
   _setLikeState(isActive) {
@@ -73,21 +58,6 @@ export default class Card {
   _handlePreview = () => {
     this._handleImageClick?.(this._name, this._link);
   };
-
-  /*
-  _setEventListeners() {
-    this._likeButton.addEventListener("click", this._handleLike);
-    this._deleteButton.addEventListener("click", this._handleDelete);
-    this._image.addEventListener("click", this._handlePreview);
-
-    // Accesibilidad: espacio/enter activan like si el foco está ahí
-    this._likeButton.addEventListener("keydown", (e) => {
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-        this._likeButton.click();
-      }
-    });
-  }*/
 
   _setEventListeners() {
     // Like
@@ -151,6 +121,7 @@ export default class Card {
     instance._deleteButton = element.querySelector(".card__delete");
 
     instance._setEventListeners();
+
     // No forzar estado de like: respeta si el botón ya trae clase activa
     const isActive =
       instance._likeButton?.classList?.contains("card__like_active");

@@ -3,9 +3,9 @@ import { openPopup, closePopup, setPopupCloseHandlers } from "./utils.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
-/* ===========================================
-   SELECTORES (coinciden con tu index.html)
-=========================================== */
+/* =============================
+   SELECTORES
+================================ */
 // Contenedor de tarjetas (tu <section class="elements">)
 const cardsContainer = document.querySelector(".elements");
 
@@ -77,25 +77,6 @@ function renderCard({ name, link }, { addToStart = false } = {}) {
   else cardsContainer.append(el);
 }
 
-// Hidratación de tarjetas estáticas ya presentes en el HTML
-/*function hydrateExistingCards() {
-  const existing = Array.from(cardsContainer.querySelectorAll(".card"));
-  existing.forEach((el) => {
-    Card.hydrate(el, { handleImageClick });
-  });
-}*/
-
-// Si en el futuro decides no dejar tarjetas en HTML estático,
-// podrías usar este array y renderizarlas por JS:
-// const initialCards = [
-//   { name: "Chichén Itzá", link: "./images/chichenitza_mex.webp" },
-//   { name: "Colima", link: "./images/colima_mex.webp" },
-//   { name: "Guadalajara", link: "./images/guadalajara_mex.webp" },
-//   { name: "Pirámide del Sol", link: "./images/piramide_del_sol_mex.webp" },
-//   { name: "Progreso", link: "./images/progreso_mex.webp" },
-//   { name: "Punta Perula", link: "./images/punta_perula_mex.webp" },
-// ];
-
 const initialCards = [
   { name: "Chichén Itzá", link: "./images/chichenitza_mex.webp" },
   { name: "Colima", link: "./images/colima_mex.webp" },
@@ -147,8 +128,3 @@ formAdd.addEventListener("submit", (e) => {
   addValidator.resetValidation();
   closePopup(popupAdd);
 });
-
-/* ===========================================
-   INICIO
-=========================================== */
-//hydrateExistingCards();
