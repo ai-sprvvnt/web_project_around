@@ -1,7 +1,8 @@
 // scripts/index.js
-import { openPopup, closePopup, setPopupCloseHandlers } from "./utils.js";
+//import { openPopup, closePopup, setPopupCloseHandlers } from "./utils.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
+import Popup from "./Popup.js";
 import Section from "./Section.js";
 
 /* =============================
@@ -14,12 +15,27 @@ import Section from "./Section.js";
 const cardsContainerSelector = ".elements"; //el grid vive en .elements
 
 // Popups
-const popupEdit = document.querySelector(".popup_type_edit");
+/*const popupEdit = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
-const popupImage = document.querySelector(".popup_type_image");
+const popupImage = document.querySelector(".popup_type_image");*/
+
+// Popups (elementos del DOM, renombrados con “El” = Element)
+const popupEditEl = document.querySelector(".popup_type_edit");
+const popupAddEl = document.querySelector(".popup_type_add");
+const popupImageEl = document.querySelector(".popup_type_image");
+
+// Crear instancias
+const popupEdit = new Popup(".popup_type_edit");
+const popupAdd = new Popup(".popup_type_add");
+const popupImage = new Popup(".popup_type_image");
+
+// Listeners internos (X + overlay)
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
+popupImage.setEventListeners();
 
 // Cerrar por botón X / overlay / ESC
-[popupEdit, popupAdd, popupImage].forEach((p) => setPopupCloseHandlers(p));
+//[popupEdit, popupAdd, popupImage].forEach((p) => setPopupCloseHandlers(p));
 
 // Botones abrir popups
 const editBtn = document.querySelector(".profile__edit-button");
@@ -30,18 +46,21 @@ const profileNameEl = document.querySelector(".profile__name");
 const profileRoleEl = document.querySelector(".profile__role");
 
 // Form: Editar perfil
-const formEdit = popupEdit.querySelector('form[name="edit-profile-form"]');
+const formEdit = popupEditEl.querySelector('form[name="edit-profile-form"]');
 const inputName = formEdit.querySelector("#profile-name-input");
 const inputAbout = formEdit.querySelector("#profile-role-input");
 
 // Form: Nueva tarjeta
-const formAdd = popupAdd.querySelector('form[name="add-card-form"]');
+const formAdd = popupAddEl.querySelector('form[name="add-card-form"]');
 const inputTitle = formAdd.elements["title"];
 const inputLink = formAdd.elements["link"];
 
 // Popup imagen (vista previa)
-const popupImg = popupImage.querySelector(".popup__image");
-const popupCap = popupImage.querySelector(".popup__caption");
+/*const popupImg = popupImage.querySelector(".popup__image");
+const popupCap = popupImage.querySelector(".popup__caption");*/
+
+const popupImg = popupImageEl.querySelector(".popup__image");
+const popupCap = popupImageEl.querySelector(".popup__caption");
 
 // Config validación (tus nombres reales)
 const validationConfig = {
@@ -62,11 +81,17 @@ addValidator.enableValidation();
 /* ===========================================
    HANDLERS COMUNES
 =========================================== */
+// Abrir vista previa desde Card
 function handleImageClick(name, link) {
+  /*popupImg.src = link;
+  popupImg.alt = name || "Imagen ampliada";
+  popupCap.textContent = name || "";
+  openPopup(popupImage);*/
+
   popupImg.src = link;
   popupImg.alt = name || "Imagen ampliada";
   popupCap.textContent = name || "";
-  openPopup(popupImage);
+  popupImage.open();
 }
 
 /* ===========================================
@@ -114,31 +139,41 @@ cardsSection.renderItems();
 /* ===========================================
    POPUP: Editar perfil
 =========================================== */
+
+// Abrir “Editar perfil”
+//const editBtn = document.querySelector(".profile__edit-button");
 editBtn.addEventListener("click", () => {
   inputName.value = profileNameEl.textContent.trim();
   inputAbout.value = profileRoleEl.textContent.trim();
   editValidator.resetValidation();
-  openPopup(popupEdit);
+  //openPopup(popupEdit);
+  popupEdit.open();
   setTimeout(() => inputName.focus(), 0);
 });
 
+// Guardar “Editar perfil”
 formEdit.addEventListener("submit", (e) => {
   e.preventDefault();
   profileNameEl.textContent = inputName.value.trim();
   profileRoleEl.textContent = inputAbout.value.trim();
-  closePopup(popupEdit);
+  //closePopup(popupEdit);
+  popupEdit.close();
 });
 
 /* ===========================================
    POPUP: Nueva tarjeta
 =========================================== */
+// Abrir “Nueva tarjeta”
+//const addOpenBtn = document.querySelector(".profile__add-button");
 addOpenBtn.addEventListener("click", () => {
   formAdd.reset();
   addValidator.resetValidation();
-  openPopup(popupAdd);
+  //openPopup(popupAdd);
+  popupAdd.open();
   setTimeout(() => inputTitle.focus(), 0);
 });
 
+// Guardar “Nueva tarjeta”
 formAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = inputTitle.value.trim();
@@ -152,5 +187,6 @@ formAdd.addEventListener("submit", (e) => {
 
   formAdd.reset();
   addValidator.resetValidation();
-  closePopup(popupAdd);
+  //closePopup(popupAdd);
+  popupAdd.close();
 });
