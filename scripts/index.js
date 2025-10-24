@@ -2,12 +2,16 @@
 import { openPopup, closePopup, setPopupCloseHandlers } from "./utils.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
+import Section from "./Section.js";
 
 /* =============================
    SELECTORES
 ================================ */
 // Contenedor de tarjetas (tu <section class="elements">)
-const cardsContainer = document.querySelector(".elements");
+//const cardsContainer = document.querySelector(".elements");
+
+// Selector del contenedor de tarjetas (Section lo resolverá)
+const cardsContainerSelector = ".elements"; //el grid vive en .elements
 
 // Popups
 const popupEdit = document.querySelector(".popup_type_edit");
@@ -70,12 +74,12 @@ function handleImageClick(name, link) {
 =========================================== */
 
 // Render desde datos (usa tu template #card-template)
-function renderCard({ name, link }, { addToStart = false } = {}) {
+/*function renderCard({ name, link }, { addToStart = false } = {}) {
   const card = new Card({ name, link }, "#card-template", { handleImageClick });
   const el = card.getView();
   if (addToStart) cardsContainer.prepend(el);
   else cardsContainer.append(el);
-}
+}*/
 
 const initialCards = [
   { name: "Chichén Itzá", link: "./images/chichenitza_mex.webp" },
@@ -86,10 +90,26 @@ const initialCards = [
   { name: "Punta Perula", link: "./images/punta_perula_mex.webp" },
 ];
 
-initialCards.forEach((item) => {
+/*initialCards.forEach((item) => {
   const card = new Card(item, "#card-template", { handleImageClick });
   document.querySelector(".elements").append(card.getView());
-});
+});*/
+
+// Instancia de Section: define cómo crear cada tarjeta (renderer)
+const cardsSection = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const card = new Card(data, "#card-template", { handleImageClick });
+      const el = card.getView();
+      cardsSection.addItem(el); // respeta el orden de initialCards
+    },
+  },
+  cardsContainerSelector
+);
+
+// Render inicial de todas las tarjetas
+cardsSection.renderItems();
 
 /* ===========================================
    POPUP: Editar perfil
@@ -123,7 +143,13 @@ formAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = inputTitle.value.trim();
   const link = inputLink.value.trim();
-  renderCard({ name, link }, { addToStart: true });
+  //renderCard({ name, link }, { addToStart: true });
+  const card = new Card({ name, link }, "#card-template", { handleImageClick }); //Nuevo sprint 11
+  const el = card.getView(); //Nuevo sprint 11
+
+  // nuevas al inicio
+  cardsSection.addItemAtStart(el); //Nuevo sprint 11
+
   formAdd.reset();
   addValidator.resetValidation();
   closePopup(popupAdd);

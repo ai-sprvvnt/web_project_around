@@ -1,0 +1,20 @@
+{
+  "name": "web_project_around",
+  "version": "1.0.0",
+  "description": "Alrededor de los EE.UU. — Sprint 10",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ai-sprvvnt/web_project_around.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ai-sprvvnt/web_project_around/issues"
+  },
+  "homepage": "https://github.com/ai-sprvvnt/web_project_around#readme"
+}
