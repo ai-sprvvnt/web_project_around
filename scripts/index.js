@@ -3,6 +3,7 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
 
 /* =============================
@@ -11,7 +12,7 @@ import Section from "./Section.js";
 // Contenedor de tarjetas (tu <section class="elements">)
 //const cardsContainer = document.querySelector(".elements");
 
-// Selector del contenedor de tarjetas (Section lo resolverá)
+// Selector del contenedor de tarjetas (Section lo resolverá) (selector del grid)
 const cardsContainerSelector = ".elements"; //el grid vive en .elements
 
 // Popups
@@ -22,12 +23,13 @@ const popupImage = document.querySelector(".popup_type_image");*/
 // Popups (elementos del DOM, renombrados con “El” = Element)
 const popupEditEl = document.querySelector(".popup_type_edit");
 const popupAddEl = document.querySelector(".popup_type_add");
-const popupImageEl = document.querySelector(".popup_type_image");
+//const popupImageEl = document.querySelector(".popup_type_image");
 
 // Crear instancias
 const popupEdit = new Popup(".popup_type_edit");
 const popupAdd = new Popup(".popup_type_add");
-const popupImage = new Popup(".popup_type_image");
+//const popupImage = new Popup(".popup_type_image");
+const popupImage = new PopupWithImage(".popup_type_image");
 
 // Listeners internos (X + overlay)
 popupEdit.setEventListeners();
@@ -59,8 +61,8 @@ const inputLink = formAdd.elements["link"];
 /*const popupImg = popupImage.querySelector(".popup__image");
 const popupCap = popupImage.querySelector(".popup__caption");*/
 
-const popupImg = popupImageEl.querySelector(".popup__image");
-const popupCap = popupImageEl.querySelector(".popup__caption");
+/*const popupImg = popupImageEl.querySelector(".popup__image");
+const popupCap = popupImageEl.querySelector(".popup__caption");*/
 
 // Config validación (tus nombres reales)
 const validationConfig = {
@@ -87,11 +89,11 @@ function handleImageClick(name, link) {
   popupImg.alt = name || "Imagen ampliada";
   popupCap.textContent = name || "";
   openPopup(popupImage);*/
-
-  popupImg.src = link;
+  /*popupImg.src = link;
   popupImg.alt = name || "Imagen ampliada";
   popupCap.textContent = name || "";
-  popupImage.open();
+  popupImage.open();*/
+  popupImage.open(name, link);
 }
 
 /* ===========================================
