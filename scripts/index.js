@@ -5,6 +5,7 @@ import Card from "./Card.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 import Section from "./Section.js";
 
 /* =============================
@@ -32,16 +33,13 @@ const popupAdd = new Popup(".popup_type_add");*/
 
 const popupEdit = new PopupWithForm(".popup_type_edit", (values, instance) => {
   // Mapea por name o id
-  const nameVal =
-    values.name || values["profile-name-input"] || values["profile_name"] || "";
-  const aboutVal =
-    values.about ||
-    values["profile-role-input"] ||
-    values["profile_role"] ||
-    "";
+  const nameVal = values.name || values["profile-name-input"] || "";
+  const aboutVal = values.about || values["profile-role-input"] || "";
 
-  profileNameEl.textContent = nameVal.trim();
-  profileRoleEl.textContent = aboutVal.trim();
+  /* profileNameEl.textContent = nameVal.trim();
+  profileRoleEl.textContent = aboutVal.trim();*/
+  userInfo.setUserInfo({ name: nameVal, about: aboutVal });
+
   instance.close();
 });
 
@@ -77,8 +75,8 @@ const editBtn = document.querySelector(".profile__edit-button");
 const addOpenBtn = document.querySelector(".profile__add-button");
 
 // Perfil
-const profileNameEl = document.querySelector(".profile__name");
-const profileRoleEl = document.querySelector(".profile__role");
+/*const profileNameEl = document.querySelector(".profile__name");
+const profileRoleEl = document.querySelector(".profile__role");*/
 
 // Form: Editar perfil
 const formEdit = popupEditEl.querySelector('form[name="edit-profile-form"]');
@@ -96,6 +94,12 @@ const popupCap = popupImage.querySelector(".popup__caption");*/
 
 /*const popupImg = popupImageEl.querySelector(".popup__image");
 const popupCap = popupImageEl.querySelector(".popup__caption");*/
+
+//Instancia con los selectores
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__role",
+});
 
 // Config validación (tus nombres reales)
 const validationConfig = {
@@ -177,16 +181,17 @@ cardsSection.renderItems();
 
 // Abrir “Editar perfil”
 //const editBtn = document.querySelector(".profile__edit-button");
+
 editBtn.addEventListener("click", () => {
   /*inputName.value = profileNameEl.textContent.trim();
   inputAbout.value = profileRoleEl.textContent.trim();*/
-
+  const { name, about } = userInfo.getUserInfo();
   // Prefill usando setInputValues; acepta keys por name o id
   popupEdit.setInputValues({
-    name: profileNameEl.textContent.trim(),
-    about: profileRoleEl.textContent.trim(),
-    "profile-name-input": profileNameEl.textContent.trim(),
-    "profile-role-input": profileRoleEl.textContent.trim(),
+    name,
+    about,
+    "profile-name-input": name,
+    "profile-role-input": about,
   });
 
   editValidator.resetValidation();
