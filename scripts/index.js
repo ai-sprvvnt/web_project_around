@@ -4,6 +4,7 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
 import Section from "./Section.js";
 
 /* =============================
@@ -26,8 +27,40 @@ const popupAddEl = document.querySelector(".popup_type_add");
 //const popupImageEl = document.querySelector(".popup_type_image");
 
 // Crear instancias
-const popupEdit = new Popup(".popup_type_edit");
-const popupAdd = new Popup(".popup_type_add");
+/*const popupEdit = new Popup(".popup_type_edit");
+const popupAdd = new Popup(".popup_type_add");*/
+
+const popupEdit = new PopupWithForm(".popup_type_edit", (values, instance) => {
+  // Mapea por name o id
+  const nameVal =
+    values.name || values["profile-name-input"] || values["profile_name"] || "";
+  const aboutVal =
+    values.about ||
+    values["profile-role-input"] ||
+    values["profile_role"] ||
+    "";
+
+  profileNameEl.textContent = nameVal.trim();
+  profileRoleEl.textContent = aboutVal.trim();
+  instance.close();
+});
+
+const popupAdd = new PopupWithForm(".popup_type_add", (values, instance) => {
+  const title =
+    values.title || values["card-title"] || values["title-input"] || "";
+  const link = values.link || values["card-link"] || values["link-input"] || "";
+  const card = new Card(
+    { name: title.trim(), link: link.trim() },
+    "#card-template",
+    { handleImageClick }
+  );
+  const el = card.getView();
+  cardsSection.addItemAtStart(el); // nuevas arriba
+
+  // Si usas validación en este popup, lo reiniciamos tras cerrar.
+  instance.close();
+});
+
 //const popupImage = new Popup(".popup_type_image");
 const popupImage = new PopupWithImage(".popup_type_image");
 
@@ -145,8 +178,17 @@ cardsSection.renderItems();
 // Abrir “Editar perfil”
 //const editBtn = document.querySelector(".profile__edit-button");
 editBtn.addEventListener("click", () => {
-  inputName.value = profileNameEl.textContent.trim();
-  inputAbout.value = profileRoleEl.textContent.trim();
+  /*inputName.value = profileNameEl.textContent.trim();
+  inputAbout.value = profileRoleEl.textContent.trim();*/
+
+  // Prefill usando setInputValues; acepta keys por name o id
+  popupEdit.setInputValues({
+    name: profileNameEl.textContent.trim(),
+    about: profileRoleEl.textContent.trim(),
+    "profile-name-input": profileNameEl.textContent.trim(),
+    "profile-role-input": profileRoleEl.textContent.trim(),
+  });
+
   editValidator.resetValidation();
   //openPopup(popupEdit);
   popupEdit.open();
@@ -154,13 +196,13 @@ editBtn.addEventListener("click", () => {
 });
 
 // Guardar “Editar perfil”
-formEdit.addEventListener("submit", (e) => {
+/*formEdit.addEventListener("submit", (e) => {
   e.preventDefault();
   profileNameEl.textContent = inputName.value.trim();
   profileRoleEl.textContent = inputAbout.value.trim();
   //closePopup(popupEdit);
   popupEdit.close();
-});
+});*/
 
 /* ===========================================
    POPUP: Nueva tarjeta
@@ -168,7 +210,7 @@ formEdit.addEventListener("submit", (e) => {
 // Abrir “Nueva tarjeta”
 //const addOpenBtn = document.querySelector(".profile__add-button");
 addOpenBtn.addEventListener("click", () => {
-  formAdd.reset();
+  //formAdd.reset();
   addValidator.resetValidation();
   //openPopup(popupAdd);
   popupAdd.open();
@@ -176,7 +218,7 @@ addOpenBtn.addEventListener("click", () => {
 });
 
 // Guardar “Nueva tarjeta”
-formAdd.addEventListener("submit", (e) => {
+/*formAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = inputTitle.value.trim();
   const link = inputLink.value.trim();
@@ -191,4 +233,4 @@ formAdd.addEventListener("submit", (e) => {
   addValidator.resetValidation();
   //closePopup(popupAdd);
   popupAdd.close();
-});
+});*/
