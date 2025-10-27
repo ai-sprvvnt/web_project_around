@@ -11,35 +11,21 @@ import Section from "./Section.js";
 /* =============================
    SELECTORES
 ================================ */
-// Contenedor de tarjetas (tu <section class="elements">)
-//const cardsContainer = document.querySelector(".elements");
 
 // Selector del contenedor de tarjetas (Section lo resolverá) (selector del grid)
 const cardsContainerSelector = ".elements"; //el grid vive en .elements
 
-// Popups
-/*const popupEdit = document.querySelector(".popup_type_edit");
-const popupAdd = document.querySelector(".popup_type_add");
-const popupImage = document.querySelector(".popup_type_image");*/
-
 // Popups (elementos del DOM, renombrados con “El” = Element)
 const popupEditEl = document.querySelector(".popup_type_edit");
 const popupAddEl = document.querySelector(".popup_type_add");
-//const popupImageEl = document.querySelector(".popup_type_image");
 
 // Crear instancias
-/*const popupEdit = new Popup(".popup_type_edit");
-const popupAdd = new Popup(".popup_type_add");*/
-
 const popupEdit = new PopupWithForm(".popup_type_edit", (values, instance) => {
   // Mapea por name o id
   const nameVal = values.name || values["profile-name-input"] || "";
   const aboutVal = values.about || values["profile-role-input"] || "";
 
-  /* profileNameEl.textContent = nameVal.trim();
-  profileRoleEl.textContent = aboutVal.trim();*/
   userInfo.setUserInfo({ name: nameVal, about: aboutVal });
-
   instance.close();
 });
 
@@ -55,7 +41,7 @@ const popupAdd = new PopupWithForm(".popup_type_add", (values, instance) => {
   const el = card.getView();
   cardsSection.addItemAtStart(el); // nuevas arriba
 
-  // Si usas validación en este popup, lo reiniciamos tras cerrar.
+  //Validación en este popup, lo reinicia tras cerrar.
   instance.close();
 });
 
@@ -67,16 +53,9 @@ popupEdit.setEventListeners();
 popupAdd.setEventListeners();
 popupImage.setEventListeners();
 
-// Cerrar por botón X / overlay / ESC
-//[popupEdit, popupAdd, popupImage].forEach((p) => setPopupCloseHandlers(p));
-
 // Botones abrir popups
 const editBtn = document.querySelector(".profile__edit-button");
 const addOpenBtn = document.querySelector(".profile__add-button");
-
-// Perfil
-/*const profileNameEl = document.querySelector(".profile__name");
-const profileRoleEl = document.querySelector(".profile__role");*/
 
 // Form: Editar perfil
 const formEdit = popupEditEl.querySelector('form[name="edit-profile-form"]');
@@ -87,13 +66,6 @@ const inputAbout = formEdit.querySelector("#profile-role-input");
 const formAdd = popupAddEl.querySelector('form[name="add-card-form"]');
 const inputTitle = formAdd.elements["title"];
 const inputLink = formAdd.elements["link"];
-
-// Popup imagen (vista previa)
-/*const popupImg = popupImage.querySelector(".popup__image");
-const popupCap = popupImage.querySelector(".popup__caption");*/
-
-/*const popupImg = popupImageEl.querySelector(".popup__image");
-const popupCap = popupImageEl.querySelector(".popup__caption");*/
 
 //Instancia con los selectores
 const userInfo = new UserInfo({
@@ -122,29 +94,12 @@ addValidator.enableValidation();
 =========================================== */
 // Abrir vista previa desde Card
 function handleImageClick(name, link) {
-  /*popupImg.src = link;
-  popupImg.alt = name || "Imagen ampliada";
-  popupCap.textContent = name || "";
-  openPopup(popupImage);*/
-  /*popupImg.src = link;
-  popupImg.alt = name || "Imagen ampliada";
-  popupCap.textContent = name || "";
-  popupImage.open();*/
   popupImage.open(name, link);
 }
 
 /* ===========================================
    TARJETAS
 =========================================== */
-
-// Render desde datos (usa tu template #card-template)
-/*function renderCard({ name, link }, { addToStart = false } = {}) {
-  const card = new Card({ name, link }, "#card-template", { handleImageClick });
-  const el = card.getView();
-  if (addToStart) cardsContainer.prepend(el);
-  else cardsContainer.append(el);
-}*/
-
 const initialCards = [
   { name: "Chichén Itzá", link: "./images/chichenitza_mex.webp" },
   { name: "Colima", link: "./images/colima_mex.webp" },
@@ -153,11 +108,6 @@ const initialCards = [
   { name: "Progreso", link: "./images/progreso_mex.webp" },
   { name: "Punta Perula", link: "./images/punta_perula_mex.webp" },
 ];
-
-/*initialCards.forEach((item) => {
-  const card = new Card(item, "#card-template", { handleImageClick });
-  document.querySelector(".elements").append(card.getView());
-});*/
 
 // Instancia de Section: define cómo crear cada tarjeta (renderer)
 const cardsSection = new Section(
@@ -179,14 +129,9 @@ cardsSection.renderItems();
    POPUP: Editar perfil
 =========================================== */
 
-// Abrir “Editar perfil”
-//const editBtn = document.querySelector(".profile__edit-button");
-
 editBtn.addEventListener("click", () => {
-  /*inputName.value = profileNameEl.textContent.trim();
-  inputAbout.value = profileRoleEl.textContent.trim();*/
   const { name, about } = userInfo.getUserInfo();
-  // Prefill usando setInputValues; acepta keys por name o id
+
   popupEdit.setInputValues({
     name,
     about,
@@ -195,47 +140,17 @@ editBtn.addEventListener("click", () => {
   });
 
   editValidator.resetValidation();
-  //openPopup(popupEdit);
   popupEdit.open();
   setTimeout(() => inputName.focus(), 0);
 });
 
-// Guardar “Editar perfil”
-/*formEdit.addEventListener("submit", (e) => {
-  e.preventDefault();
-  profileNameEl.textContent = inputName.value.trim();
-  profileRoleEl.textContent = inputAbout.value.trim();
-  //closePopup(popupEdit);
-  popupEdit.close();
-});*/
-
 /* ===========================================
    POPUP: Nueva tarjeta
 =========================================== */
-// Abrir “Nueva tarjeta”
-//const addOpenBtn = document.querySelector(".profile__add-button");
+
 addOpenBtn.addEventListener("click", () => {
-  //formAdd.reset();
   addValidator.resetValidation();
-  //openPopup(popupAdd);
   popupAdd.open();
   setTimeout(() => inputTitle.focus(), 0);
 });
 
-// Guardar “Nueva tarjeta”
-/*formAdd.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = inputTitle.value.trim();
-  const link = inputLink.value.trim();
-  //renderCard({ name, link }, { addToStart: true });
-  const card = new Card({ name, link }, "#card-template", { handleImageClick }); //Nuevo sprint 11
-  const el = card.getView(); //Nuevo sprint 11
-
-  // nuevas al inicio
-  cardsSection.addItemAtStart(el); //Nuevo sprint 11
-
-  formAdd.reset();
-  addValidator.resetValidation();
-  //closePopup(popupAdd);
-  popupAdd.close();
-});*/

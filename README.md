@@ -1,109 +1,90 @@
 # Tripleten web_project_around
 
-Alrededor de los EE.UU. — Sprint 10
+# Proyecto 11: Alrededor de los EE.UU. — Sprint 11
 
-Proyecto educativo de una galería interactiva con tarjetas: editar perfil, añadir lugares, dar “like”, eliminar y previsualizar imagen en un modal. En este sprint se refactorizó a POO con clases ES6 y módulos ES.
+Este proyecto es parte del curso de Desarrollo Web de **TripleTen**.  
+En este sprint se implementa la **programación orientada a objetos (POO)** en JavaScript, aplicando herencia, encapsulación y acoplamiento débil para refactorizar la funcionalidad del sitio “Alrededor de los EE.UU.”.
+
+El sitio permite editar la información del perfil, agregar nuevas tarjetas con imágenes y títulos, dar “me gusta”, eliminar tarjetas y visualizar imágenes en tamaño completo mediante una ventana emergente.
+
+---
+
+## URLs
 
 Demo: https://ai-sprvvnt.github.io/web_project_around/
 Repositorio: ai-sprvvnt/web_project_around
 
-🎯 Objetivos del Sprint 10
+## 🚀 Funcionalidad principal
 
-Reescritura a clases:
+- Mostrar tarjetas iniciales con nombre e imagen.
+- Agregar nuevas tarjetas dinámicamente desde un formulario.
+- Dar “like” a las tarjetas.
+- Eliminar tarjetas individualmente.
+- Editar el nombre y la descripción del perfil.
+- Abrir una imagen en un popup ampliado con su descripción.
+- Cierre de popups por botón, overlay o tecla **ESC**.
+- Validación activa de formularios.
+- Estructura del código basada en **clases ES6**.
 
-Card para encapsular toda la lógica de una tarjeta.
+## 📁 Estructura del proyectoweb_project_around/
 
-FormValidator para validar formularios de forma reutilizable.
+src/
+│
+├── components/
+│ ├── Card.js
+│ ├── Section.js
+│ ├── Popup.js
+│ ├── PopupWithImage.js
+│ ├── PopupWithForm.js
+│ ├── UserInfo.js
+│ └── FormValidator.js
+│
+├── pages/
+│ ├── index.css
+│ └── index.js
+│
+├── blocks/ # Estilos CSS organizados por bloques BEM
+│
+├── images/ # Imágenes y recursos locales
+│
+├── vendor/
+│ └── normalize.css
+│
+└── index.html
 
-Separación del código en módulos ES (type="module").
+## 🧩 Estructura de clases
 
-Limpieza de listeners globales y responsabilidad única por componente.
+| Clase              | Archivo                        | Responsabilidad principal                                                   |
+| :----------------- | :----------------------------- | :-------------------------------------------------------------------------- |
+| **Card**           | `components/Card.js`           | Crea, renderiza y gestiona eventos de cada tarjeta (like, delete, preview). |
+| **Section**        | `components/Section.js`        | Renderiza y administra un conjunto de tarjetas.                             |
+| **Popup**          | `components/Popup.js`          | Controla la apertura y cierre de cualquier ventana emergente.               |
+| **PopupWithImage** | `components/PopupWithImage.js` | Extiende Popup para mostrar imágenes y leyendas.                            |
+| **PopupWithForm**  | `components/PopupWithForm.js`  | Extiende Popup y maneja formularios con callbacks de envío.                 |
+| **UserInfo**       | `components/UserInfo.js`       | Obtiene y actualiza los datos del usuario (nombre y descripción).           |
+| **FormValidator**  | `components/FormValidator.js`  | Valida campos de entrada y controla el estado del botón de envío.           |
 
-Renderizado de todas las tarjetas iniciales desde JavaScript.
+---
 
-✨ Funcionalidades
+## 🧠 Tecnologías utilizadas
 
-Editar perfil: abre modal, valida campos, guarda y cierra.
+- **HTML5** (estructura semántica, accesible y responsiva)
+- **CSS3** con metodología **BEM** (Bloque — Elemento — Modificador)
+- **Flexbox** y **Grid Layout**
+- **JavaScript (ES6+)**
+  - Módulos (`import` / `export`)
+  - Clases y herencia
+  - Manipulación del DOM
+  - Validación de formularios nativa
+- **Git y GitHub Pages** para control de versiones y despliegue
+- **Figma** como referencia de diseño
 
-Añadir tarjeta: abre modal, valida, crea tarjeta y la agrega al inicio.
+---
 
-Like en tarjeta: alterna estado y cambia icono (accesible con Enter/Espacio).
+## 👨‍💻 Autor
 
-Eliminar tarjeta.
+**Felipe García**  
+Desarrollador web en formación  
+📧 Contacto: [ai.sprvvnt@gmail.com]
 
-Vista ampliada: clic en imagen abre modal con caption.
-
-Cierre de modales: por botón, clic en overlay y tecla Esc.
-
-Validación “universal” con clase FormValidator, botón de enviar desactivado si hay errores.
-
-🧱 Estructura del proyecto
-web_project_around/
-├─ images/ # recursos .webp, íconos (heart_vector.svg, etc.)
-├─ pages/
-│ └─ index.css # estilos principales
-├─ scripts/
-│ ├─ index.js # orquestación principal (ES module)
-│ ├─ Card.js # clase Card
-│ ├─ FormValidator.js # clase FormValidator
-│ └─ utils.js # openPopup, closePopup, setPopupCloseHandlers
-├─ vendor/
-│ ├─ normalize.css
-│ └─ fonts.css
-├─ favicon.ico # favicon multiresolución
-├─ index.html
-└─ README.md
-
-🧩 Clases y módulos
-Card
-
-Encapsula una tarjeta (crear DOM desde <template>, listeners y handlers internos).
-
-Constructor: new Card({ name, link }, '#card-template', { handleImageClick })
-
-Público:
-
-getView() → HTMLElement listo para insertar.
-
-Interno:
-
-Like (.card**like, estado .card**like_active + cambio de icono).
-
-Eliminar (.card\_\_delete).
-
-Preview (clic en .card\_\_image llama a handleImageClick(name, link)).
-
-Clases BEM usadas por la tarjeta:
-
-card, card**image, card**title, card**like, card**like_active, card**like-icon, card**delete.
-
-FormValidator
-
-🚀 Deploy en GitHub Pages
-
-En GitHub, ve a Settings → Pages.
-
-Source: Deploy from a branch.
-
-Branch: main (o la que uses) y carpeta /root.
-
-Guarda. Espera a que aparezca la URL bajo “Your site is live”.
-
-Si usas rutas relativas (./images/...), la página funcionará tanto local como en Pages.
-
-🧰 Tecnologías y prácticas
-
-HTML5 semántico, BEM en CSS.
-
-normalize.css + fonts.css.
-
-ES6 Modules y POO.
-
-Manipulación de DOM segura (textContent, setAttribute).
-
-Gestión de eventos con responsabilidades por componente.
-
-Imágenes .webp y favicon multiresolución.
-
-👨‍🏫 Autor
 Feipe García
