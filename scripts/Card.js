@@ -3,17 +3,29 @@
 export default class Card {
   /**
    * Crear una Card desde datos y un template.
-   * @param {{name:string, link:string}} data
+   * @param {{name:string, link:string, isLiked?: boolean, _id?: string}} data
    * @param {string} templateSelector  ej. '#card-template'
    * @param {{ handleImageClick: (name:string, link:string)=>void }} handlers
    */
-  constructor(data, templateSelector, { handleImageClick }) {
+
+  constructor(
+    data,
+    templateSelector,
+    { handleImageClick, handleDeleteClick, handleLikeClick }
+  ) {
     this._name = data.name;
     this._link = data.link;
+
+    // Datos que vienen del servidor
+    this._id = data._id || null; // ID de la tarjeta en el servidor
+    this._isLiked = Boolean(data.isLiked); // estado inicial del like
+
     this._templateSelector = templateSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
 
-    // Clases de tu proyecto
+    // Clases del proyecto
     this._imageClass = "card__image";
     this._titleClass = "card__title";
     this._likeBtnClass = "card__like";
@@ -21,7 +33,7 @@ export default class Card {
     this._likeIconClass = "card__like-icon";
     this._deleteBtnClass = "card__delete";
 
-    // Iconos de like (exactamente como en tu index.js)
+    // Iconos de like (exactamente como en el index.js)
     this._iconFilled = "./images/heart_filled_vector.svg";
     this._iconOutline = "./images/heart_vector.svg";
   }
@@ -36,6 +48,9 @@ export default class Card {
 
   // ====== LIKE ======
   _setLikeState(isActive) {
+    // Sincronizar el boolean interno con la vista
+    this._isLiked = !!isActive;
+
     this._likeButton.classList.toggle(this._likeActiveClass, isActive);
     const icon = this._likeButton.querySelector(`.${this._likeIconClass}`);
     if (icon) icon.src = isActive ? this._iconFilled : this._iconOutline;
@@ -43,17 +58,24 @@ export default class Card {
   }
 
   _handleLike = () => {
-    const nowActive = !this._likeButton.classList.contains(
-      this._likeActiveClass
-    );
-    this._setLikeState(nowActive);
+    if (this._handleLikeClick) {
+      // Delegamos la lógica a index.js, pasando la instancia
+      this._handleLikeClick(this);
+    } else {
+      // Fallback: si no hay handler, se comporta como antes (solo front)
+      const nowActive = !this._isLiked;
+      this._setLikeState(nowActive);
+    }
   };
-  // ====== /LIKE ======
 
-  _handleDelete = () => {
-    this._element.remove();
-    this._element = null;
-  };
+  // ====== /LIKE ======
+  // Método público: elimina la tarjeta del DOM
+  removeCard() {
+    if (this._element) {
+      this._element.remove();
+      this._element = null;
+    }
+  }
 
   _handlePreview = () => {
     this._handleImageClick?.(this._name, this._link);
@@ -69,8 +91,12 @@ export default class Card {
       }
     });
 
-    // Eliminar
-    this._deleteButton.addEventListener("click", this._handleDelete);
+    // Eliminar: delega en el callback que viene desde index.js
+    this._deleteButton.addEventListener("click", () => {
+      if (this._handleDeleteClick) {
+        this._handleDeleteClick(this); // le pasamos la instancia de Card
+      }
+    });
 
     // Imagen (ampliar)
     this._image.addEventListener("click", this._handlePreview);
@@ -93,9 +119,27 @@ export default class Card {
     this._title.textContent = this._name;
 
     this._setEventListeners();
+
     // Estado inicial del like (por si en el futuro llega desde datos)
-    this._setLikeState(false);
+    this._setLikeState(this._isLiked);
+
     return this._element;
+  }
+
+  // ========= Métodos públicos útiles para likes =========
+  // ID de la tarjeta en el servidor
+  getId() {
+    return this._id;
+  }
+
+  // ¿Está likeada esta tarjeta?
+  isLiked() {
+    return this._isLiked;
+  }
+
+  // Forzar estado de like desde fuera (tras respuesta de la API)
+  setIsLiked(isLiked) {
+    this._setLikeState(!!isLiked);
   }
 
   // ========= Hidratación de tarjetas estáticas existentes =========
@@ -111,7 +155,13 @@ export default class Card {
     const data = {
       name: titleEl?.textContent?.trim() || img?.alt || "",
       link: img?.src || "",
+
+      // En hidratación no tenemos info de servidor
+      isLiked: element
+        .querySelector(".card__like")
+        ?.classList.contains("card__like_active"),
     };
+
     const instance = new Card(data, "#card-template", { handleImageClick });
     // En hidratación, no creamos un nuevo nodo; usamos el existente
     instance._element = element;

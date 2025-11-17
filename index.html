@@ -187,6 +187,24 @@
       </div>
     </div>
 
+    <!-- Popup confirmar eliminación -->
+    <div class="popup popup_type_delete">
+      <div class="popup__container">
+        <button class="popup__close" type="button" aria-label="Cerrar">
+          ×
+        </button>
+        <button
+          class="popup__close-button"
+          type="button"
+          aria-label="Cerrar ventana de confirmación"
+        ></button>
+        <form class="popup__form" name="confirm-delete-form" novalidate>
+          <h2 class="popup__title">¿Estás seguro/a?</h2>
+          <button class="popup__save-button" type="submit">Sí</button>
+        </form>
+      </div>
+    </div>
+
     <template id="card-template">
       <article class="card">
         <img class="card__image" src="" alt="" />
