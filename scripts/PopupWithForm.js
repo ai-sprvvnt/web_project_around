@@ -45,6 +45,39 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  // >>> NUEVO: controlar el estado de carga del botón
+  renderLoading(isLoading, loadingText = "Guardando...") {
+    if (!this._submitButton) return;
+
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+      this._submitButton.disabled = true;
+    } else {
+      this._submitButton.textContent = this._submitButtonInitialText;
+      this._submitButton.disabled = false;
+    }
+  }
+
+  setLoadingState(isLoading, loadingText = "Guardando...") {
+    if (!this._form) return;
+
+    const submitButton = this._form.querySelector(".popup__save-button");
+    if (!submitButton) return;
+
+    // Guarda el texto original una sola vez
+    if (!this._defaultButtonText) {
+      this._defaultButtonText = submitButton.textContent;
+    }
+
+    if (isLoading) {
+      submitButton.textContent = loadingText;
+      submitButton.disabled = true;
+    } else {
+      submitButton.textContent = this._defaultButtonText;
+      submitButton.disabled = false;
+    }
+  }
+
   /** Añade listener de submit + mantiene los de X/overlay del padre */
   setEventListeners() {
     super.setEventListeners();

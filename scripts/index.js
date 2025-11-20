@@ -165,6 +165,8 @@ const popupEdit = new PopupWithForm(".popup_type_edit", (values, instance) => {
   const nameVal = values.name || values["profile-name-input"] || "";
   const aboutVal = values.about || values["profile-role-input"] || "";
 
+  instance.setLoadingState(true);
+
   // Llamar a la API para actualizar el perfil
   api
     .updateUserInfo({
@@ -186,6 +188,9 @@ const popupEdit = new PopupWithForm(".popup_type_edit", (values, instance) => {
     .catch((err) => {
       // Requisito mínimo: mostrar el error en consola
       console.log(err);
+    })
+    .finally(() => {
+      instance.setLoadingState(false);
     });
 });
 
@@ -202,6 +207,8 @@ const popupAdd = new PopupWithForm(".popup_type_add", (values, instance) => {
   const nameTrimmed = title.trim();
   const linkTrimmed = link.trim();
 
+  instance.setLoadingState(true);
+
   // Enviar la nueva tarjeta al servidor
   api
     .addCard({
@@ -216,6 +223,9 @@ const popupAdd = new PopupWithForm(".popup_type_add", (values, instance) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      instance.setLoadingState(false);
     });
 });
 
@@ -228,6 +238,8 @@ const popupAvatar = new PopupWithForm(
   (values, instance) => {
     const avatarUrl = values.avatar || values["avatar-link-input"] || "";
 
+    instance.setLoadingState(true);
+
     api
       .updateAvatar({ avatar: avatarUrl.trim() })
       .then((updatedUser) => {
@@ -236,6 +248,9 @@ const popupAvatar = new PopupWithForm(
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        instance.setLoadingState(false);
       });
   }
 );
