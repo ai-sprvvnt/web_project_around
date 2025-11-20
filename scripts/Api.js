@@ -94,6 +94,17 @@ class Api {
       .catch(this._handleError);
   }
 
+  // Actualizar foto de perfil (avatar)
+  updateAvatar({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ avatar }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleError);
+  }
+
   // Devuelve [userInfo, cards]
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getInitialCards()]);

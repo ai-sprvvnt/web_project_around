@@ -51,10 +51,12 @@ const api = new Api({
 // Popups (elementos del DOM, renombrados con “El” = Element)
 const popupEditEl = document.querySelector(".popup_type_edit");
 const popupAddEl = document.querySelector(".popup_type_add");
+const popupAvatarEl = document.querySelector(".popup_type_avatar");
 
 // Botones que abren los popups
 const editBtn = document.querySelector(".profile__edit-button");
 const addOpenBtn = document.querySelector(".profile__add-button");
+const avatarEditBtn = document.querySelector(".profile__avatar-edit-button");
 
 // Form: Editar perfil
 const formEdit = popupEditEl.querySelector('form[name="edit-profile-form"]');
@@ -66,6 +68,10 @@ const formAdd = popupAddEl.querySelector('form[name="add-card-form"]');
 const inputTitle = formAdd.elements["title"];
 const inputLink = formAdd.elements["link"];
 
+//   Popup: cambiar avatar
+const formAvatar = popupAvatarEl.querySelector('form[name="edit-avatar-form"]');
+const inputAvatar = formAvatar.elements["avatar"];
+
 // ============================
 //  INSTANCIAS PRINCIPALES
 // ============================
@@ -74,6 +80,7 @@ const inputLink = formAdd.elements["link"];
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__role",
+  avatarSelector: ".profile__avatar",
 });
 
 //const popupImage = new Popup(".popup_type_image");
@@ -213,6 +220,27 @@ const popupAdd = new PopupWithForm(".popup_type_add", (values, instance) => {
 });
 
 // ============================
+//  POPUP: Cambiar avatar (PATCH /users/me/avatar)
+// ============================
+
+const popupAvatar = new PopupWithForm(
+  ".popup_type_avatar",
+  (values, instance) => {
+    const avatarUrl = values.avatar || values["avatar-link-input"] || "";
+
+    api
+      .updateAvatar({ avatar: avatarUrl.trim() })
+      .then((updatedUser) => {
+        userInfo.setAvatar(updatedUser.avatar);
+        instance.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
+// ============================
 //  LISTENERS INTERNOS DE POPUPS
 // ============================
 // Listeners internos (X + overlay)
@@ -220,6 +248,7 @@ popupEdit.setEventListeners();
 popupAdd.setEventListeners();
 popupImage.setEventListeners();
 popupConfirmDelete.setEventListeners();
+popupAvatar.setEventListeners();
 
 // ============================
 //  VALIDACIÓN DE FORMULARIOS
@@ -227,8 +256,10 @@ popupConfirmDelete.setEventListeners();
 // Instancias de validación (una por form)
 const editValidator = new FormValidator(validationConfig, formEdit);
 const addValidator = new FormValidator(validationConfig, formAdd);
+const avatarValidator = new FormValidator(validationConfig, formAvatar);
 editValidator.enableValidation();
 addValidator.enableValidation();
+avatarValidator.enableValidation();
 
 // ============================
 //  EVENTOS: Abrir popups
@@ -268,6 +299,14 @@ addOpenBtn.addEventListener("click", () => {
   setTimeout(() => inputTitle.focus(), 0);
 });
 
+// Abrir popup de editar avatar
+avatarEditBtn.addEventListener("click", () => {
+  avatarValidator.resetValidation();
+  formAvatar.reset(); // opcional: limpiar el campo
+  popupAvatar.open();
+  setTimeout(() => inputAvatar.focus(), 0);
+});
+
 // ============================
 //  CARGA INICIAL DESDE EL SERVIDOR
 // ============================
@@ -286,7 +325,9 @@ api
       about: userData.about,
     });
 
-    // userInfo.setAvatar(userData.avatar);
+    if (userData.avatar) {
+      userInfo.setAvatar(userData.avatar);
+    }
 
     // Renderizar tarjetas obtenidas del servidor
     // Por ahora asumimos que cada cardData tiene al menos { name, link }

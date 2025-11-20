@@ -2,11 +2,14 @@
 
 export default class UserInfo {
   /**
-   * @param {{ nameSelector: string, aboutSelector: string }} params
+   * @param {{ nameSelector: string, aboutSelector: string, avatarSelector?: string }} params
    */
-  constructor({ nameSelector, aboutSelector }) {
+  constructor({ nameSelector, aboutSelector, avatarSelector }) {
     this._nameEl = document.querySelector(nameSelector);
     this._aboutEl = document.querySelector(aboutSelector);
+    this._avatarEl = avatarSelector
+      ? document.querySelector(avatarSelector)
+      : null;
 
     if (!this._nameEl) {
       throw new Error(`UserInfo: no se encontró el elemento "${nameSelector}"`);
@@ -16,6 +19,7 @@ export default class UserInfo {
         `UserInfo: no se encontró el elemento "${aboutSelector}"`
       );
     }
+    // Ojo: el avatar es opcional, así que aquí NO lanzamos error si no existe
   }
 
   /**
@@ -27,6 +31,7 @@ export default class UserInfo {
     return {
       name: this._nameEl.textContent?.trim() || "",
       about: this._aboutEl.textContent?.trim() || "",
+      // podríamos devolver avatar más adelante si lo necesitas
     };
   }
 
@@ -41,5 +46,21 @@ export default class UserInfo {
 
     if (nextName) this._nameEl.textContent = nextName;
     if (nextAbout) this._aboutEl.textContent = nextAbout;
+  }
+
+  /**
+   * Actualiza la imagen de avatar.
+   * @param {string} avatarUrl
+   */
+  setAvatar(avatarUrl) {
+    if (!this._avatarEl || !avatarUrl) return;
+
+    this._avatarEl.src = avatarUrl;
+
+    // Opcional: actualizar el alt para accesibilidad
+    const currentName = this._nameEl.textContent?.trim();
+    if (currentName) {
+      this._avatarEl.alt = `Avatar de ${currentName}`;
+    }
   }
 }

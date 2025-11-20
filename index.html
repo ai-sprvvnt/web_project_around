@@ -26,11 +26,23 @@
     <main class="content">
       <!-- Perfil -->
       <section class="profile">
-        <img class="profile__avatar" src="./images/jacques.webp" alt="Avatar" />
+        <!-- Contenedor del avatar + overlay -->
+        <div class="profile__avatar-container">
+          <img
+            class="profile__avatar"
+            src="./images/jacques.webp"
+            alt="Avatar"
+          />
+          <button
+            class="profile__avatar-edit-button"
+            type="button"
+            aria-label="Cambiar foto de perfil"
+          ></button>
+        </div>
 
+        <!-- Info del usuario -->
         <div class="profile__info">
           <h2 class="profile__name">Jacques Cousteau</h2>
-
           <button
             class="profile__edit-button"
             type="button"
@@ -38,10 +50,10 @@
           >
             ✎
           </button>
-
           <p class="profile__role">Explorador</p>
         </div>
 
+        <!-- Botón para añadir tarjeta -->
         <button
           class="profile__add-button"
           type="button"
@@ -201,6 +213,28 @@
         <form class="popup__form" name="confirm-delete-form" novalidate>
           <h2 class="popup__title">¿Estás seguro/a?</h2>
           <button class="popup__save-button" type="submit">Sí</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Popup cambiar avatar -->
+    <div class="popup popup_type_avatar">
+      <div class="popup__container">
+        <button class="popup__close" type="button" aria-label="Cerrar">
+          ×
+        </button>
+        <form class="popup__form" name="edit-avatar-form" novalidate>
+          <h2 class="popup__title">Cambiar foto de perfil</h2>
+          <input
+            type="url"
+            name="avatar"
+            class="popup__input"
+            id="avatar-link-input"
+            placeholder="https://somewebsite.com/someimage.jpg"
+            required
+          />
+          <span class="popup__error" id="avatar-link-input-error"></span>
+          <button class="popup__save-button" type="submit">Guardar</button>
         </form>
       </div>
     </div>

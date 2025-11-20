@@ -6,12 +6,47 @@
   padding: 12px 0 24px;
 }
 
+.profile__avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .profile__avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 0;
+}
+
+/* Botón transparente por encima del avatar */
+.profile__avatar-edit-button {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.6) url("../../images/edit_avatar.svg") center
+    center no-repeat;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+/* Mostrar overlay al pasar el mouse */
+.profile__avatar-container:hover .profile__avatar-edit-button,
+.profile__avatar-edit-button:hover {
+  opacity: 1;
+}
+
+/* Accesibilidad: que se vea también si el botón tiene focus por teclado */
+.profile__avatar-edit-button:focus-visible {
+  outline: 2px solid #fff;
 }
 
 .profile__info {
