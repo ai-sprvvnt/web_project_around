@@ -28,63 +28,87 @@ Repositorio: ai-sprvvnt/web_project_around
 
 ## 📁 Estructura del proyectoweb_project_around/
 
-src/
-│
-├── components/
-│ ├── Card.js
-│ ├── Section.js
-│ ├── Popup.js
-│ ├── PopupWithImage.js
-│ ├── PopupWithForm.js
-│ ├── UserInfo.js
-│ └── FormValidator.js
-│
+```text
+web_project_around/
+├── index.html
 ├── pages/
-│ ├── index.css
-│ └── index.js
-│
-├── blocks/ # Estilos CSS organizados por bloques BEM
-│
-├── images/ # Imágenes y recursos locales
-│
+│   └── index.css
+├── blocks/
+│   ├── header/
+│   ├── profile/
+│   ├── elements/
+│   ├── card/
+│   ├── popup/
+│   ├── footer/
+│   └── ... (otros bloques BEM)
+├── scripts/
+│   ├── index.js
+│   ├── Api.js
+│   ├── Card.js
+│   ├── Section.js
+│   ├── Popup.js
+│   ├── PopupWithImage.js
+│   ├── PopupWithForm.js
+│   ├── PopupWithConfirmation.js
+│   ├── UserInfo.js
+│   └── FormValidator.js
+├── images/
+│   ├── around_vector.svg
+│   ├── jacques.webp
+│   ├── heart_vector.svg
+│   ├── trash_vector.svg
+│   ├── edit_avatar.svg
+│   └── ... (otras imágenes)
 ├── vendor/
-│ └── normalize.css
-│
-└── index.html
+│   ├── normalize.css
+│   └── fonts.css
+├── .gitignore
+└── README.md
 
 ## 🧩 Estructura de clases
+| Clase                   | Archivo                            | Responsabilidad principal                                                                |
+| ----------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Card`                  | `scripts/Card.js`                  | Crea, renderiza y gestiona eventos de cada tarjeta (like, delete, preview de imagen).    |
+| `Section`               | `scripts/Section.js`               | Renderiza y administra un conjunto de elementos (tarjetas) en un contenedor específico.  |
+| `Popup`                 | `scripts/Popup.js`                 | Clase padre para todas las ventanas emergentes: abre, cierra y maneja eventos genéricos. |
+| `PopupWithImage`        | `scripts/PopupWithImage.js`        | Extiende `Popup` para mostrar una imagen ampliada con su descripción.                    |
+| `PopupWithForm`         | `scripts/PopupWithForm.js`         | Extiende `Popup` y gestiona formularios (submit, estados de carga, cierre).              |
+| `PopupWithConfirmation` | `scripts/PopupWithConfirmation.js` | Extiende `Popup` para confirmar la eliminación de tarjetas.                              |
+| `UserInfo`              | `scripts/UserInfo.js`              | Gestiona la información del usuario en la interfaz (nombre, descripción, avatar).        |
+| `FormValidator`         | `scripts/FormValidator.js`         | Valida formularios, muestra mensajes de error y controla el estado del botón submit.     |
+| `Api`                   | `scripts/Api.js`                   | Encapsula todas las solicitudes a la API (usuario, tarjetas, likes y avatar).            |
 
-| Clase              | Archivo                        | Responsabilidad principal                                                   |
-| :----------------- | :----------------------------- | :-------------------------------------------------------------------------- |
-| **Card**           | `components/Card.js`           | Crea, renderiza y gestiona eventos de cada tarjeta (like, delete, preview). |
-| **Section**        | `components/Section.js`        | Renderiza y administra un conjunto de tarjetas.                             |
-| **Popup**          | `components/Popup.js`          | Controla la apertura y cierre de cualquier ventana emergente.               |
-| **PopupWithImage** | `components/PopupWithImage.js` | Extiende Popup para mostrar imágenes y leyendas.                            |
-| **PopupWithForm**  | `components/PopupWithForm.js`  | Extiende Popup y maneja formularios con callbacks de envío.                 |
-| **UserInfo**       | `components/UserInfo.js`       | Obtiene y actualiza los datos del usuario (nombre y descripción).           |
-| **FormValidator**  | `components/FormValidator.js`  | Valida campos de entrada y controla el estado del botón de envío.           |
-
----
 
 ## 🧠 Tecnologías utilizadas
 
-- **HTML5** (estructura semántica, accesible y responsiva)
-- **CSS3** con metodología **BEM** (Bloque — Elemento — Modificador)
-- **Flexbox** y **Grid Layout**
-- **JavaScript (ES6+)**
-  - Módulos (`import` / `export`)
-  - Clases y herencia
-  - Manipulación del DOM
-  - Validación de formularios nativa
-- **Git y GitHub Pages** para control de versiones y despliegue
-- **Figma** como referencia de diseño
+- **HTML5** semántico.
+- **CSS3**:
+  - Metodología **BEM** (Bloque–Elemento–Modificador) para nombres de clases.
+  - Estructura de archivos CSS por bloques (`blocks/`).
+  - Layout con **Flexbox** y **Grid**.
+  - Diseño adaptativo para diferentes anchos de pantalla.
+- **JavaScript (ES6+)**:
+  - Módulos ES (`import` / `export`).
+  - Clases para encapsular lógica (Card, Section, Popup, Api, etc.).
+  - Manejo de eventos, delegación y accesibilidad básica (ESC, Overlay, focus).
+  - Validación de formularios con `ValidityState` y atributos HTML5.
+  - Promesas y trabajo con **fetch**.
+- **Interacción con API REST**:
+  - `GET /users/me`, `PATCH /users/me`, `PATCH /users/me/avatar`.
+  - `GET /cards`, `POST /cards`, `DELETE /cards/:cardId`.
+  - `PUT /cards/:cardId/likes`, `DELETE /cards/:cardId/likes`.
+- **Herramientas adicionales**:
+  - `normalize.css`.
+  - Fuentes locales declaradas en `vendor/fonts.css`.
+  - Git & GitHub para control de versiones.
 
 ---
 
 ## 👨‍💻 Autor
 
-**Felipe García**  
-Desarrollador web en formación  
+**Felipe García**
+Desarrollador web en formación
 📧 Contacto: [ai.sprvvnt@gmail.com]
 
 Feipe García
+```
